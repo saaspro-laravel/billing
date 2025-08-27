@@ -1,11 +1,10 @@
 <?php
 
-namespace Utyemma\SaasPro\Filament\Resources\Payments;
+namespace SaasPro\Billing\Filament\Resources;
 
-use Utyemma\SaasPro\Enums\PaymentGateways;
-use Utyemma\SaasPro\Filament\Resources\Payments\PaymentGatewayResource\Pages;
-use Utyemma\SaasPro\Filament\Forms\Components\SelectStatus;
-use Utyemma\SaasPro\Models\PaymentGateway;
+use SaasPro\Billing\Enums\PaymentGateways;
+use SaasPro\Billing\Filament\Resources\PaymentGatewayResource\Pages;
+use SaasPro\Billing\Models\PaymentGateway;
 use Filament\Forms;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Select;
@@ -13,8 +12,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use SaasPro\Filament\Forms\Components\SelectStatus;
 
 class PaymentGatewayResource extends Resource
 {
@@ -22,7 +20,7 @@ class PaymentGatewayResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-credit-card';
 
-    protected static ?string $navigationGroup = 'Configuration';
+    protected static ?string $navigationGroup = 'Billing';
 
     public static function form(Form $form): Form
     {

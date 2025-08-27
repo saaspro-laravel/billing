@@ -1,12 +1,11 @@
 <?php
 
-namespace Utyemma\SaasPro\Enums;
+namespace SaasPro\Billing\Enums;
 
-use Utyemma\SaasPro\Contracts\Payment\RedirectPayment;
-use Utyemma\SaasPro\Models\PaymentGateway;
-use Utyemma\SaasPro\Models\PaymentMethod;
-use Utyemma\SaasPro\PaymentGateways\Lemonsqueezy\LemonSqueezy;
-use Utyemma\SaasPro\PaymentGateways\Stripe\StripeGateway;
+use SaasPro\Billing\Contracts\Payment\RedirectPayment;
+use SaasPro\Billing\Models\PaymentGateway;
+use SaasPro\Billing\PaymentGateways\Lemonsqueezy\LemonSqueezy;
+use SaasPro\Billing\PaymentGateways\Stripe\StripeGateway;
 
 enum PaymentGateways:string {
 
@@ -32,8 +31,8 @@ enum PaymentGateways:string {
 
     function provider(){
         return match ($this) {
-            self::STRIPE => StripeGateway::instance(),
-            self::LEMON_SQUEEZY => LemonSqueezy::instance()
+            // self::STRIPE => StripeGateway::instance(),
+            // self::LEMON_SQUEEZY => LemonSqueezy::instance()
         };
     }
 

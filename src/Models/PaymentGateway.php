@@ -1,10 +1,10 @@
 <?php
 
-namespace Utyemma\SaasPro\Models;
+namespace SaasPro\Billing\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Utyemma\SaasPro\Concerns\Models\HasStatus;
-use Utyemma\SaasPro\Enums\PaymentGateways;
+use SaasPro\Billing\Enums\PaymentGateways;
+use SaasPro\Concerns\Models\HasStatus;
 
 class PaymentGateway extends Model {
     use HasStatus;

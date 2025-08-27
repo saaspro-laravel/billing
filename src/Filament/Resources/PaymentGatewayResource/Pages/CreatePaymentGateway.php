@@ -1,8 +1,8 @@
 <?php
 
-namespace Utyemma\SaasPro\Filament\Resources\Payments\PaymentGatewayResource\Pages;
+namespace SaasPro\Billing\Filament\Resources\PaymentGatewayResource\Pages;
 
-use Utyemma\SaasPro\Filament\Resources\Payments\PaymentGatewayResource;
+use SaasPro\Billing\Filament\Resources\PaymentGatewayResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 

@@ -1,14 +1,15 @@
 <?php
 
-namespace Utyemma\SaasPro\Contracts\Payment;
+namespace SaasPro\Billing\Contracts\Payment;
 
-use Utyemma\SaasPro\Support\HttpResponse;
+use SaasPro\Billing\Support\HttpResponse;
 use Illuminate\Http\Request;
+use SaasPro\Support\State;
 
 interface HandlesWebhook {
     
-    function handleWebhook(array $payload): HttpResponse;
-    function verifyWebhook(Request $request): HttpResponse;
+    function handleWebhook(array $payload): State;
+    function verifyWebhook(Request $request): State;
     
     
 }

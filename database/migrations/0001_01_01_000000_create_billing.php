@@ -21,13 +21,13 @@ return new class extends Migration {
             $table->id();
             $table->json('payload');
             $table->double('amount');
-            $table->string('status');
             $table->string('gateway');
             $table->string('reference');
             $table->morphs('transactable');
             $table->string('currency_code');
             $table->string('country_code');
             $table->string('provider_id')->nullable();
+            $table->string('status');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -1,17 +1,14 @@
 <?php
 
-namespace Utyemma\SaasPro\Filament\Resources\Billing;
+namespace SaasPro\Billing\Filament\Resources;
 
-use Utyemma\SaasPro\Filament\Resources\Billing\TransactionResource\Pages;
-use Utyemma\SaasPro\Filament\Resources\Billing\TransactionResource\RelationManagers;
-use Utyemma\SaasPro\Models\Transactions\Transaction;
+use SaasPro\Billing\Filament\Resources\TransactionResource\Pages;
+use SaasPro\Billing\Models\Transaction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TransactionResource extends Resource
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Utyemma\SaasPro\Contracts\Payment;
+namespace SaasPro\Billing\Contracts\Payment;
 
-use Utyemma\SaasPro\Models\Subscription;
+use SaasPro\Subscriptions\Models\Subscription;
 
 interface HandlesSubscriptionRenewal {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Utyemma\SaasPro\Models;
+namespace SaasPro\Billing\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

@@ -1,0 +1,31 @@
+{
+    "name": "saaspro/billing",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Utibe-Abasi Emmanuel",
+            "email": "utyemma@gmail.com"
+        }
+    ],
+    "description": "Plugin for payment support for Saas Pro",
+    "autoload": {
+        "psr-4": {
+            "SaasPro\\Billing\\": "src/"
+        }
+    },
+    "suggest": {
+        "filament/filament": "Required to access the admin panel"
+    },
+    "extra": {
+        "laravel": { 
+            "providers": [
+                "SaasPro\\Billing\\BillingServiceProvider"
+            ]
+        },
+        "saaspro": {
+            "providers": [
+                "SaasPro\\Billing\\PluginProvider"
+            ]
+        }
+    }
+}

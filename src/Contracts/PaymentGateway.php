@@ -1,22 +1,23 @@
 <?php
 
-namespace Utyemma\SaasPro\Contracts\Payment;
+namespace SaasPro\Billing\Contracts\Payment;
 
-use Utyemma\SaasPro\Models\Transactions\Transaction;
-use Utyemma\SaasPro\Support\HttpResponse;
+use SaasPro\Billing\Models\Transactions\Transaction;
+use SaasPro\Billing\Support\HttpResponse;
 use Illuminate\Http\Client\Response;
+use SaasPro\Support\State;
 
 interface PaymentGateway {
 
     public function client(): mixed;
 
-    public function verify(Transaction $transaction): HttpResponse;
+    public function verify(Transaction $transaction): State;
 
     public function subscribe(Transaction $transaction): array;
     // public function onResponse(HttpResponse $httpResponse, Transaction $transaction): array;
     
     public function checkout(Transaction $transaction): array;
 
-    public function buildResponse(Response $response): HttpResponse;
+    public function buildResponse(Response $response): State;
 
 }

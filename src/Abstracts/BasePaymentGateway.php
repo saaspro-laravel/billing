@@ -1,22 +1,21 @@
 <?php
 
-namespace Utyemma\SaasPro\Abstracts;
+namespace SaasPro\Billing\Abstracts;
 
-use Utyemma\SaasPro\Contracts\Payment\HandlesCheckout;
-use Utyemma\SaasPro\Contracts\Payment\HandlesSubscription;
-use Utyemma\SaasPro\Contracts\Payment\HandlesWebhook;
-use Utyemma\SaasPro\Contracts\Payment\InlinePayment;
-use Utyemma\SaasPro\Contracts\Payment\PaymentGateway;
-use Utyemma\SaasPro\Contracts\Payment\RedirectPayment;
-use Utyemma\SaasPro\Enums\RequestStatus;
-use Utyemma\SaasPro\Enums\Subscriptions\SubscriptionActions;
-use Utyemma\SaasPro\Enums\SubscriptionStatus;
-use Utyemma\SaasPro\Enums\Transactions;
-use Utyemma\SaasPro\Models\Plans\PlanPrice;
-use Utyemma\SaasPro\Models\Subscription;
-use Utyemma\SaasPro\Models\Transactions\Transaction;
-use Utyemma\SaasPro\Support\HttpResponse;
+use SaasPro\Billing\Contracts\Payment\HandlesCheckout;
+use SaasPro\Billing\Contracts\Payment\HandlesSubscription;
+use SaasPro\Billing\Contracts\Payment\HandlesWebhook;
+use SaasPro\Billing\Contracts\Payment\InlinePayment;
+use SaasPro\Billing\Contracts\Payment\PaymentGateway;
+use SaasPro\Billing\Contracts\Payment\RedirectPayment;
+use SaasPro\Billing\Enums\RequestStatus;
+use SaasPro\Billing\Enums\Transactions;
+use SaasPro\Billing\Models\Transactions\Transaction;
+use SaasPro\Billing\Support\HttpResponse;
 use Illuminate\Http\Client\Response;
+use SaasPro\Subscriptions\Models\PlanPrice;
+use SaasPro\Subscriptions\Models\Subscription;
+use SaasPro\Support\State;
 
 abstract class BasePaymentGateway implements PaymentGateway {
 
@@ -64,7 +63,7 @@ abstract class BasePaymentGateway implements PaymentGateway {
         }
     }
 
-    private function onResponse(HttpResponse $httpResponse, callable | null $onFailed = null, callable | null $onSuccess = null, callable | null $context = null): array {
+    private function onResponse(State $httpResponse, callable | null $onFailed = null, callable | null $onSuccess = null, callable | null $context = null): array {
         if($httpResponse->failed()) {
             if($onFailed) $onFailed($httpResponse);
             return state(false, $httpResponse->message());
@@ -75,12 +74,12 @@ abstract class BasePaymentGateway implements PaymentGateway {
         return state(true, $httpResponse->message(), $context ? $context($httpResponse) : $httpResponse->context());
     }
 
-    function response(RequestStatus $requestStatus, array|object $context = [], mixed $content = ''){
-        return new HttpResponse($requestStatus, $context, $content);
+    function response(bool $requestStatus, array|object $context = [], mixed $content = ''){
+        return new State($requestStatus, $context, $content);
     }
 
-    public function buildResponse(Response $response): HttpResponse {
-        return $this->response(RequestStatus::OK);
+    public function buildResponse(Response $response): State {
+        return $this->response(true);
     }
 
     function hasRedirect() {
@@ -216,16 +215,7 @@ abstract class BasePaymentGateway implements PaymentGateway {
             httpResponse: $response, 
             onSuccess: function($response) {
                 $subscription = $response->subscription;
-
-                $subscription->status = $response->status;
-
-                $action = match($response->status) {
-                    SubscriptionStatus::ACTIVE => SubscriptionActions::RENEWED,
-                    SubscriptionStatus::EXPIRED => SubscriptionActions::EXPIRED,
-                    SubscriptionStatus::GRACE => SubscriptionActions::GRACE_PERIOD,
-                };
-
-                $subscription->saveHistory($action, $response->payload);
+                $subscription->saveHistory($response->payload);
 
             }
         );

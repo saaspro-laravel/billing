@@ -1,8 +1,8 @@
 <?php
 
-namespace Utyemma\SaasPro\Filament\Resources\Billing\TransactionResource\Pages;
+namespace SaasPro\Billing\Filament\Resources\TransactionResource\Pages;
 
-use Utyemma\SaasPro\Filament\Resources\Billing\TransactionResource;
+use SaasPro\Billing\Filament\Resources\TransactionResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Utyemma\SaasPro\Enums;
+namespace SaasPro\Billing\Enums;
 
 enum PaymentStatus:string {
 

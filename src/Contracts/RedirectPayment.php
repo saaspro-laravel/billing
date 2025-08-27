@@ -1,6 +1,6 @@
 <?php
 
-namespace Utyemma\SaasPro\Contracts\Payment;
+namespace SaasPro\Billing\Contracts\Payment;
 
 interface RedirectPayment {
 

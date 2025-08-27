@@ -1,20 +1,20 @@
 <?php
 
-namespace Utyemma\SaasPro\Contracts\Payment;
+namespace SaasPro\Billing\Contracts\Payment;
 
-use Utyemma\SaasPro\Models\Plans\PlanPrice;
-use Utyemma\SaasPro\Models\Subscription;
-use Utyemma\SaasPro\Models\Transactions\Transaction;
-use Utyemma\SaasPro\Support\HttpResponse;
+use SaasPro\Billing\Models\Transactions\Transaction;
+use SaasPro\Subscriptions\Models\PlanPrice;
+use SaasPro\Subscriptions\Models\Subscription;
+use SaasPro\Support\State;
 
 interface HandlesSubscription {
 
-    function startSubscription(Transaction $transaction): HttpResponse;
+    function startSubscription(Transaction $transaction): State;
 
-    function cancelSubscription(Subscription $subscription): HttpResponse;
+    function cancelSubscription(Subscription $subscription): State;
 
     function getSubscriptionId(mixed $response): string;
 
-    function upgradeSubscription(Subscription $subscription, PlanPrice $planPrice): HttpResponse;
+    function upgradeSubscription(Subscription $subscription, PlanPrice $planPrice): State;
 
 }

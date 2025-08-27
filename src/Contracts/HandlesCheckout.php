@@ -1,13 +1,13 @@
 <?php
 
-namespace Utyemma\SaasPro\Contracts\Payment;
+namespace SaasPro\Billing\Contracts\Payment;
 
-use Utyemma\SaasPro\Models\Transactions\Transaction;
-use Utyemma\SaasPro\Support\HttpResponse;
+use SaasPro\Billing\Models\Transactions\Transaction;
+use SaasPro\Support\State;
 
 interface HandlesCheckout {
 
-    public function startCheckout(Transaction $transaction): HttpResponse;
+    public function startCheckout(Transaction $transaction): State;
 
     function getCheckoutId(mixed $response): string;
 
