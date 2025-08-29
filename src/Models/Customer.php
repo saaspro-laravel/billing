@@ -9,7 +9,7 @@ class Customer extends Model {
 
     protected $fillable = ['name', 'email', 'phone'];
 
-    function billable(){
+    function profile(){
         return $this->morphTo();
     }
 

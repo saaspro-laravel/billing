@@ -7,18 +7,18 @@ use SaasPro\Billing\Enums\PaymentStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use SaasPro\Concerns\Models\HasHistory;
+use SaasPro\Concerns\Models\HasReference;
 use SaasPro\Contracts\SavesToHistory;
 use SaasPro\Locale\Models\Country;
 use SaasPro\Locale\Models\Currency;
 use SaasPro\Support\Token;
 
 class Transaction extends Model implements SavesToHistory {
-    use SoftDeletes, HasHistory;
+    use SoftDeletes, HasHistory, HasReference;
     
-    protected $fillable = ['reference', 'currency_code', 'country_code', 'gateway', 'provider_id', 'payload','response', 'amount', 'status'];
+    protected $fillable = ['reference', 'currency_code', 'provider_id', 'payload', 'amount', 'status'];
 
     protected $casts = [
-        'gateway' => PaymentGateways::class,
         'status' => PaymentStatus::class,
         'payload' => 'array'
     ];
@@ -30,11 +30,10 @@ class Transaction extends Model implements SavesToHistory {
     static function booted(){
         self::creating(function(Transaction $transaction){
             $country = Country::current();
-            $transaction->country()->associate($country);
             $transaction->currency()->associate($country->currency);
 
             if(!$transaction->reference) {
-                $transaction->reference = Token::random(8)->prepend('TXN-')->upper()->unique(self::class, 'reference');
+                $transaction->reference = $transaction->generateReference('TXN-');
             }
         });
     }
